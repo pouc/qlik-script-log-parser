@@ -791,7 +791,7 @@ loadBlockLoad		=
 	{
 		return {
 			distinct: distinct ? true : false,
-			fields: fields,
+			fields: fields.fields,
 			txt: () => computeText(arguments)
 		};
 	}
@@ -838,10 +838,17 @@ loadBlockSourceInline		=
 	{
 		return {
 			loadBlockType: 'INLINE',
+
 			data: {
+				from: data.txt(),
+				lib: false,
+				table: false,
+				params: false,
+			
 				fields: data.fields,
 				rows: data.rows
 			},
+			
 			txt: () => computeText(arguments)
 		}
 	}
@@ -851,8 +858,8 @@ loadBlockSourceInlineRows 	=
 	rows:	(sep	loadBlockSourceInlineRow)*
 	{
 		return {
-			fields: header[0].split(',').map(field => field.trim()),
-			rows: rows.map(row => row[0]),
+			fields: header.split(',').map(field => field.trim()),
+			rows: rows.map(row => row[1]),
 			txt: () => computeText(arguments)
 		}
 	}
@@ -867,9 +874,12 @@ loadBlockSourceSQL			=
 	{
 		return {
 			loadBlockType: 'SQL',
+
 			data: {
-				fields: false,
-				value: values.map(row => row.join('')).join('') + value
+				from: values.map(row => row.join('')).join('') + value,
+				lib: false,
+				table: false,
+				params: false,
 			},
 			txt: () => computeText(arguments)
 		}
@@ -880,9 +890,14 @@ loadBlockSourceResident			=
 	{
 		return {
 			loadBlockType: 'RESIDENT',
+
 			data: {
-				resident: source
+				from: source,
+				lib: false,
+				table: source,
+				params: false
 			},
+			
 			txt: () => computeText(arguments)
 		}
 	}
@@ -892,7 +907,13 @@ loadBlockSourceAutogenerate		=
 	{
 		return {
 			loadBlockType: 'AUTOGENERATE',
+
 			data: {
+				from: computeText(arguments),
+				lib: false,
+				table: false,
+				params: false,
+			
 				value: expr
 			},
 			txt: () => computeText(arguments)
@@ -904,10 +925,14 @@ loadBlockSourceFrom		=
 	{
 		return {
 			loadBlockType: 'FROM',
+
 			data: {
 				from: src,
+				lib: false,
+				table: false,
 				params: params ? params[2].params : false
 			},
+			
 			txt: () => computeText(arguments)
 		}
 	}

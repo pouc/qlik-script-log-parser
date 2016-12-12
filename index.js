@@ -51,38 +51,43 @@ module.exports = {
 			
 			return {
 				
-				parse: function(file) {
-
-					try {
-						
-						var parsed = parser.parse(file);
-						
-						return {
-							parsed: true,
-							result: parsed.blocks,
-							txt: parsed.txt
-						};
-						
-					} catch (e) {
-						
-						if (e.name === 'SyntaxError') {
-							return {
-								parsed: false,
-								message: e.message,
-								expected: e.expected,
-								found: e.found,
-								location: e.location
-							}
-						} else {
-							throw e;
-						}
-						
-					}
-					
-				}
+				parse: parseFile
 				
 			}
 		
 		});
 	}
 }
+
+
+
+
+function parseFile(file) {
+
+	try {
+		
+		var parsed = parser.parse(file);
+		
+		return {
+			parsed: true,
+			result: parsed.blocks,
+			txt: parsed.txt
+		};
+		
+	} catch (e) {
+		
+		if (e.name === 'SyntaxError') {
+			return {
+				parsed: false,
+				message: e.message,
+				expected: e.expected,
+				found: e.found,
+				location: e.location
+			}
+		} else {
+			throw e;
+		}
+		
+	}
+	
+} 
