@@ -1,6 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var util = require('util')
 var promise = require('q');
 
 var peg = require("pegjs");
