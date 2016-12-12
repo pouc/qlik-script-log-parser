@@ -51,7 +51,7 @@ module.exports = {
 			
 			return {
 				
-				parse: parseFile
+				parse: file => parseFile(parser, file)
 				
 			}
 		
@@ -59,10 +59,7 @@ module.exports = {
 	}
 }
 
-
-
-
-function parseFile(file) {
+function parseFile(parser, file) {
 
 	try {
 		

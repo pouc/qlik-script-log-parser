@@ -1,0 +1,2 @@
+2016-02-11 11:22:31 0018 SET CollationLocale='es-ES'
+2016-02-11 11:22:31 0024 *Custom*

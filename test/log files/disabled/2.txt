@@ -1,0 +1,83 @@
+2016-10-07 13:40:08      Execution started.
+2016-10-07 13:40:08      Qlik Sense Server Version     10.0.4+Build:0.local.Component.Version
+2016-10-07 13:40:08      CPU Target                    x64
+2016-10-07 13:40:08      Operating System              Windows 10 Enterprise  (64 bit edition)
+2016-10-07 13:40:08      Wow64 mode                    Not using Wow64
+2016-10-07 13:40:08      Language                      040c French (France) French
+2016-10-07 13:40:08      Country                       33 France France
+2016-10-07 13:40:08      MDAC Version                  6.3.9600.16384
+2016-10-07 13:40:08      MDAC Full Install Version     6.3.9600.16384
+2016-10-07 13:40:08      PreferredCompression          2
+2016-10-07 13:40:08      EnableParallelReload          1
+2016-10-07 13:40:08      ParallelizeQvdLoads           1
+2016-10-07 13:40:08      EnableFlushLog                0
+2016-10-07 13:40:08      UserLogfileCharset            65001
+2016-10-07 13:40:08      OdbcLoginTimeout              -1
+2016-10-07 13:40:08      OdbcConnectionTimeout         -1
+2016-10-07 13:40:08      LongestPossibleLine           1048576
+2016-10-07 13:40:08      ScriptWantsDbWrite            false
+2016-10-07 13:40:08      ScriptWantsExe                false
+2016-10-07 13:40:08      LogFile CodePage Used:        65001
+2016-10-07 13:40:08      UseMemoryFillPattern          1
+2016-10-07 13:40:08      ScriptMode                    Standard (limits system access)
+2016-10-07 13:40:08      SequentialThreadCount         13
+2016-10-07 13:40:08      NumberOfCores (effective)     4
+2016-10-07 13:40:08      ReloadCodebase                Classic
+2016-10-07 13:40:08      Reload Executed By            UserDirectory=FRPAR-LRN1; UserId=qlikadmin
+2016-10-07 13:40:08      Process Executing             Qlik Sense Server
+2016-10-07 13:40:08      Process ID                    5504
+2016-10-07 13:40:08 0002 SET ThousandSep=' '
+2016-10-07 13:40:08 0003 SET DecimalSep=','
+2016-10-07 13:40:08 0004 SET MoneyThousandSep=' '
+2016-10-07 13:40:08 0005 SET MoneyDecimalSep=','
+2016-10-07 13:40:08 0006 SET MoneyFormat='# ##0,00 €;-# ##0,00 €'
+2016-10-07 13:40:08 0007 SET TimeFormat='hh:mm:ss'
+2016-10-07 13:40:08 0008 SET DateFormat='DD/MM/YYYY'
+2016-10-07 13:40:08 0009 SET TimestampFormat='DD/MM/YYYY hh:mm:ss[.fff]'
+2016-10-07 13:40:08 0010 SET MonthNames='janv.;févr.;mars;avr.;mai;juin;juil.;août;sept.;oct.;nov.;déc.'
+2016-10-07 13:40:08 0011 SET DayNames='lun.;mar.;mer.;jeu.;ven.;sam.;dim.'
+2016-10-07 13:40:08 0012 SET LongMonthNames='janvier;février;mars;avril;mai;juin;juillet;août;septembre;octobre;novembre;décembre'
+2016-10-07 13:40:08 0013 SET LongDayNames='lundi;mardi;mercredi;jeudi;vendredi;samedi;dimanche'
+2016-10-07 13:40:08 0014 SET FirstWeekDay=0
+2016-10-07 13:40:08 0015 SET BrokenWeeks=1
+2016-10-07 13:40:08 0016 SET ReferenceDay=0
+2016-10-07 13:40:08 0017 SET FirstMonthOfYear=1
+2016-10-07 13:40:08 0018 SET CollationLocale='fr-FR'
+2016-10-07 13:40:08 0020 LET v_Hashtag = TRUE OR FALSE
+2016-10-07 13:40:08 0020 LET v_Hashtag = TRUE OR FALSE AND TRUE
+2016-10-07 13:40:08 0020 LET v_Hashtag = TRUE OR (FALSE AND TRUE)
+2016-10-07 13:40:08 0020 LET v_Hashtag = (TRUE OR (FALSE AND TRUE))
+2016-10-07 13:40:08 0020 LET v_Hashtag = ((a = b) OR (FALSE AND TRUE))
+2016-10-07 13:40:08 0020 LET v_Hashtag = Lower('ALL')
+2016-10-07 13:40:08 0021 LET v_User = Lower('detikcom#elnacionalweb')
+2016-10-07 13:40:08 0026 LET v_Term_Hashtag = If(v_Hashtag = 'all' OR Left(v_Hashtag, 3) = '%%%', '', '{""terms"":{""entities.hashtags.text"": [""' & Replace(v_Hashtag, '#', '"", ""') & '""] }}')
+2016-10-07 13:40:08 0027 LET v_Term_User = If(v_User = 'all' OR Left(v_User, 3) = '%%%', '', '{""terms"":{""user.screen_name"": [""' & Replace(v_User, '#', '"", ""') & '""] }}')
+2016-10-07 13:40:08 0029 LET v_Term = v_Term_Hashtag & If(Len(v_Term_Hashtag) > 0 AND Len(v_Term_User) > 0, ', ', '') & v_Term_User
+2016-10-07 13:40:08 0031 IF (Len(v_Term) = 0) THEN
+
+2016-10-07 13:40:11 0033 TRACE #Total : 0
+2016-10-07 13:40:11 0033 #Total : 0
+2016-10-07 13:40:11 0034 
+2016-10-07 13:40:08 0038 [Months]:
+2016-10-07 13:40:08 0039 MAPPING
+2016-10-07 13:40:08 0040 LOAD *, X as Z, lower(X) as [W ], X+1, X1 AND X2 OR Y1 AND Y2 AS Z,
+2016-10-07 13:40:08 0040 (1 + '1' * 2 & '1') AS test INLINE [
+2016-10-07 13:40:08 0041     X, Y
+2016-10-07 13:40:08 0042     Jan, 1
+2016-10-07 13:40:08 0043     Feb, 2
+2016-10-07 13:40:08 0044     Mar, 3
+2016-10-07 13:40:08 0045     Apr, 4
+2016-10-07 13:40:08 0046     May, 5
+2016-10-07 13:40:08 0047     Jun, 6
+2016-10-07 13:40:08 0048     Jul, 7
+2016-10-07 13:40:08 0049     Aug, 8
+2016-10-07 13:40:08 0050     Sep, 9
+2016-10-07 13:40:08 0051     Oct, 10
+2016-10-07 13:40:08 0052     Nov, 11
+2016-10-07 13:40:08 0053     Dec, 12
+2016-10-07 13:40:08 0054 ]
+2016-10-07 13:40:08      	2 fields found: X, Y, 
+2016-10-07 13:40:08      12 lines fetched
+2016-10-07 13:40:08      Creating search index
+2016-10-07 13:40:08      Search index creation completed successfully
+2016-10-07 13:40:08      Execution finished.

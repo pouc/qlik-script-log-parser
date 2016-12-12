@@ -1,0 +1,49 @@
+2016-10-25 17:43:09      Execution started.
+2016-10-25 17:43:09      Qlik Sense Server Version     10.0.4+Build:0.local.Component.Version
+2016-10-25 17:43:09      CPU Target                    x64
+2016-10-25 17:43:09      Operating System              Windows 10 Enterprise  (64 bit edition)
+2016-10-25 17:43:09      Wow64 mode                    Not using Wow64
+2016-10-25 17:43:09      Language                      040c Français (France) French
+2016-10-25 17:43:09      Country                       33 France France
+2016-10-25 17:43:09      MDAC Version                  6.3.9600.16384
+2016-10-25 17:43:09      MDAC Full Install Version     6.3.9600.16384
+2016-10-25 17:43:09      PreferredCompression          2
+2016-10-25 17:43:09      EnableParallelReload          1
+2016-10-25 17:43:09      ParallelizeQvdLoads           1
+2016-10-25 17:43:09      EnableFlushLog                0
+2016-10-25 17:43:09      UserLogfileCharset            65001
+2016-10-25 17:43:09      OdbcLoginTimeout              -1
+2016-10-25 17:43:09      OdbcConnectionTimeout         -1
+2016-10-25 17:43:09      LongestPossibleLine           1048576
+2016-10-25 17:43:09      ScriptWantsDbWrite            false
+2016-10-25 17:43:09      ScriptWantsExe                false
+2016-10-25 17:43:09      LogFile CodePage Used:        65001
+2016-10-25 17:43:09      UseMemoryFillPattern          1
+2016-10-25 17:43:09      ScriptMode                    Standard (limits system access)
+2016-10-25 17:43:09      SequentialThreadCount         13
+2016-10-25 17:43:09      NumberOfCores (effective)     4
+2016-10-25 17:43:09      ReloadCodebase                Classic
+2016-10-25 17:43:09      Reload Executed By            Personal\Me
+2016-10-25 17:43:09      Process Executing             Qlik Sense Server
+2016-10-25 17:43:09      Process ID                    8384
+2016-10-25 17:43:09 0002 SET ThousandSep=' '
+2016-10-25 17:43:09 0003 SET DecimalSep=','
+2016-10-25 17:43:09 0004 SET MoneyThousandSep=' '
+2016-10-25 17:43:09 0005 SET MoneyDecimalSep=','
+2016-10-25 17:43:09 0006 SET MoneyFormat='# ##0,00 €;-# ##0,00 €'
+2016-10-25 17:43:09 0007 SET TimeFormat='hh:mm:ss'
+2016-10-25 17:43:09 0008 SET DateFormat='DD/MM/YYYY'
+2016-10-25 17:43:09 0009 SET TimestampFormat='DD/MM/YYYY hh:mm:ss[.fff]'
+2016-10-25 17:43:09 0010 SET FirstWeekDay=0
+2016-10-25 17:43:09 0011 SET BrokenWeeks=0
+2016-10-25 17:43:09 0012 SET ReferenceDay=4
+2016-10-25 17:43:09 0013 SET FirstMonthOfYear=1
+2016-10-25 17:43:09 0014 SET CollationLocale='fr-FR'
+2016-10-25 17:43:09 0015 SET CreateSearchIndexOnReload=1
+2016-10-25 17:43:09 0016 SET MonthNames='janv.;févr.;mars;avr.;mai;juin;juil.;août;sept.;oct.;nov.;déc.'
+2016-10-25 17:43:09 0017 SET LongMonthNames='janvier;février;mars;avril;mai;juin;juillet;août;septembre;octobre;novembre;décembre'
+2016-10-25 17:43:09 0018 SET DayNames='lun.;mar.;mer.;jeu.;ven.;sam.;dim.'
+2016-10-25 17:43:09 0019 SET LongDayNames='lundi;mardi;mercredi;jeudi;vendredi;samedi;dimanche'
+2016-10-25 17:43:09      Creating search index
+2016-10-25 17:43:09      Search index creation completed successfully
+2016-10-25 17:43:09      Execution finished.
