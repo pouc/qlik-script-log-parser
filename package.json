@@ -18,8 +18,6 @@
   "homepage": "https://github.com/pouc/qlik-script-log-parser#readme",
   "dependencies": {
     "pegjs": "git+https://github.com/pouc/pegjs.git",
-    "perfy": "^1.1.2",
-    "q": "^1.4.1",
-    "util": "^0.10.3"
+    "q": "^1.4.1"
   }
 }
