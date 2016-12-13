@@ -385,7 +385,7 @@ loadBlock			=
 	
     {
     	return {
-				precedings:				precedings[0],
+				precedings:				precedings[0].precedings,
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				load:					load[0],
 				source:					source[0],
@@ -424,7 +424,7 @@ loadBlock			=
 
     {
     	return {
-				precedings:				precedings[0],
+				precedings:				precedings[0].precedings,
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				load:					load[0],
 				source:					source[0],
@@ -460,7 +460,7 @@ loadBlock			=
 	
 	{
     	return {
-				precedings:				precedings[0],
+				precedings:				precedings[0].precedings,
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				source:					source[0],
 				suffixes:				suffixes[0].suffixes,
@@ -495,7 +495,7 @@ loadBlock			=
 	
 	{
     	return {
-				precedings:				precedings[0],
+				precedings:				precedings[0].precedings,
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				source:					source[0],
 				summary:				summary,
@@ -529,7 +529,7 @@ loadBlock			=
 	
     {
     	return {
-				precedings:				precedings[0],
+				precedings:				precedings[0].precedings,
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				load:					load[0],
 				suffixes:				suffixes.suffixes,
@@ -560,7 +560,7 @@ loadBlock			=
 
     {
     	return {
-				precedings:				precedings[0],
+				precedings:				precedings[0].precedings,
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				load:					load,
 				txt:					() => computeText(arguments)
@@ -584,7 +584,7 @@ loadBlockPrecedings
 	= head:loadBlockPreceding tail:(sep? loadBlockPreceding)*
 	{
 		return {
-			fields: tail.reduce(function(result, element) {
+			precedings: tail.reduce(function(result, element) {
 				return result.concat([element[1]])
 			}, [ head ]),
 			txt: () => computeText(arguments)
