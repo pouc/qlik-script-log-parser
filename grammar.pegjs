@@ -376,7 +376,7 @@ loadBlock			=
 	
 	// PRECEDING LOAD + SUFFIXES + LOAD BLOCK
 
-    preceding:	(loadBlockPreceding		sep)
+    precedings:	(loadBlockPrecedings	sep)
     prefixes:	(loadBlockPrefixes		sep)?
     load:		(loadBlockLoad			sep)
     source:		(loadBlockSource		sep)
@@ -385,7 +385,7 @@ loadBlock			=
 	
     {
     	return {
-				preceding:				preceding[0],
+				precedings:				precedings[0],
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				load:					load[0],
 				source:					source[0],
@@ -416,7 +416,7 @@ loadBlock			=
 	
 	/ // PRECEDING LOAD + LOAD BLOCK
 
-    preceding:	(loadBlockPreceding		sep)
+    precedings:	(loadBlockPrecedings	sep)
     prefixes:	(loadBlockPrefixes		sep)?
     load:		(loadBlockLoad			sep)
     source:		(loadBlockSource		sep? newline)
@@ -424,7 +424,7 @@ loadBlock			=
 
     {
     	return {
-				preceding:				preceding[0],
+				precedings:				precedings[0],
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				load:					load[0],
 				source:					source[0],
@@ -452,7 +452,7 @@ loadBlock			=
 	
 	/ // PRECEDING LOAD + SUFFIXES + SQL BLOCK
 	
-	preceding:	(loadBlockPreceding		sep)
+	precedings:	(loadBlockPrecedings	sep)
 	prefixes:	(loadBlockPrefixes		sep)?
 	source:		(loadBlockSourceSQL		sep)
 	suffixes:	(loadBlockSuffixes		sep? newline)
@@ -460,7 +460,7 @@ loadBlock			=
 	
 	{
     	return {
-				preceding:				preceding[0],
+				precedings:				precedings[0],
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				source:					source[0],
 				suffixes:				suffixes[0].suffixes,
@@ -488,14 +488,14 @@ loadBlock			=
 	
 	/ // PRECEDING LOAD + SQL BLOCK
 	
-	preceding:	(loadBlockPreceding		sep)
+	precedings:	(loadBlockPrecedings	sep)
 	prefixes:	(loadBlockPrefixes		sep)?
 	source:		(loadBlockSourceSQL		sep? newline)
 	summary:	(loadBlockSum			)
 	
 	{
     	return {
-				preceding:				preceding[0],
+				precedings:				precedings[0],
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				source:					source[0],
 				summary:				summary,
@@ -522,14 +522,14 @@ loadBlock			=
 	
 	// PRECEDING LOAD + SUFFIXES + LOAD BLOCK NOSOURCE
 
-    preceding:	(loadBlockPreceding		sep)
+    precedings:	(loadBlockPrecedings	sep)
     prefixes:	(loadBlockPrefixes		sep)?
     load:		(loadBlockLoad			sep)
     suffixes:	(loadBlockSuffixes		)
 	
     {
     	return {
-				preceding:				preceding[0],
+				precedings:				precedings[0],
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				load:					load[0],
 				suffixes:				suffixes.suffixes,
@@ -554,13 +554,13 @@ loadBlock			=
 	
 	/ // PRECEDING LOAD + LOAD BLOCK NOSOURCE
 
-    preceding:	(loadBlockPreceding		sep)
+    precedings:	(loadBlockPrecedings	sep)
     prefixes:	(loadBlockPrefixes		sep)?
     load:		(loadBlockLoad			)
 
     {
     	return {
-				preceding:				preceding[0],
+				precedings:				precedings[0],
 				prefixes: 				prefixes ? prefixes[0].prefixes : false,
 				load:					load,
 				txt:					() => computeText(arguments)
@@ -579,36 +579,49 @@ loadBlock			=
 				txt:					() => computeText(arguments)
         };
     }
+	
+loadBlockPrecedings
+	= head:loadBlockPreceding tail:(sep? loadBlockPreceding)*
+	{
+		return {
+			fields: tail.reduce(function(result, element) {
+				return result.concat([element[1]])
+			}, [ head ]),
+			txt: () => computeText(arguments)
+		};
+		
+    }
 
-loadBlockPreceding
-	= (
-		prefixes:	(loadBlockPrefixes	sep)?
-		load:		(loadBlockLoad		sep)
-		suffixes:	(loadBlockSuffixes	)
-        
-        {
-        	return {
-					prefixes:			prefixes ? prefixes[0].prefixes : false,
-					load:				load[0],
-					suffixes:			suffixes.suffixes,
-					txt:				() => computeText(arguments)
-            };
-        }
-        
-        /
-        
-        prefixes:	(loadBlockPrefixes	sep)?
-		load:		(loadBlockLoad		)
-        
-        {
-        	return {
-					prefixes:			prefixes ? prefixes[0].prefixes : false,
-					load:				load,
-					txt:				() => computeText(arguments)
-            };
-        }
-        
-	)+
+loadBlockPreceding 
+	= prefixes:	(loadBlockPrefixes	sep)?
+	load:		(loadBlockLoad		sep)
+	suffixes:	(loadBlockSuffixes	)
+	& (sep? loadBlock)
+	
+	{
+		return {
+				prefixes:			prefixes ? prefixes[0].prefixes : false,
+				load:				load[0],
+				suffixes:			suffixes.suffixes,
+				txt:				() => computeText(arguments)
+		};
+	}
+	
+	/
+	
+	prefixes:	(loadBlockPrefixes	sep)?
+	load:		(loadBlockLoad		)
+	& (sep? loadBlock)
+	
+	{
+		return {
+				prefixes:			prefixes ? prefixes[0].prefixes : false,
+				load:				load,
+				txt:				() => computeText(arguments)
+		};
+	}
+	
+	
 
 // PREFIXES
 	
