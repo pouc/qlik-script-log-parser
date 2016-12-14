@@ -647,7 +647,7 @@ loadBlockPrefixes
 // - UNLESS
 	
 loadBlockPrefix
-	= prefix:tableName						{ return { table: prefix,					txt:		() => computeText(arguments) } }
+	= prefix:tableName						{ return { table: prefix,				txt:		() => computeText(arguments) } }
 	/ prefix:'MAPPING'i & sep				{ return { mapping: true,					txt:		() => computeText(arguments) } }
 	/ prefix:loadBlockConcat				{ return { concat: prefix,					txt:		() => computeText(arguments) } }
 	/ prefix:loadBlockJoin					{ return { join: prefix,					txt:		() => computeText(arguments) } }
@@ -905,9 +905,9 @@ loadBlockSourceResident			=
 			loadBlockType: 'RESIDENT',
 
 			data: {
-				from: source,
+				from: source.value,
 				lib: false,
-				table: source,
+				table: source.value,
 				params: false
 			},
 			
@@ -940,7 +940,7 @@ loadBlockSourceFrom		=
 			loadBlockType: 'FROM',
 
 			data: {
-				from: src,
+				from: src.value,
 				lib: false,
 				table: false,
 				params: params ? params[2].params : false
@@ -1591,14 +1591,15 @@ resources
 	}
 
 resource			= name:(
-						lib:'lib://' res:[^ \t\r\n()]+		{ return lib + res.join(''); }
-						/ name:('@'? alphanum)				{ return (name[0] ? name[0] : '') + name[1]; }
-						/ braceQuoteString
-						/ doubleQuoteString
-						/ singleQuoteString
-						/ diagonalQuoteString
+						lib:'lib://' res:[^ \t\r\n()]+		{ return { value: lib + res.join('') }; }
+						/ name:('@'? alphanum)				{ return { value: (name[0] ? name[0] : '') + name[1] }; }
+						/ name:braceQuoteString				
+						/ name:doubleQuoteString
+						/ name:singleQuoteString
+						/ name:diagonalQuoteString
 					)
-																												{ return name;}
+					{ return name;}
+					
 variableName		= name:alphanum
 variableValue 		= expression
 
