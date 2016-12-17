@@ -17,17 +17,18 @@ var logFilesFilter = [
 ];
 
 var logFilesForce = [
-
+//	'd8d1d3f3-afa0-43c3-93e5-1528f7a48223.2016_12_07_13_27_25.FBD9E6796BC2C09F0E18.log'
 ];
 
 var logFilesDirectoryFullPaths = [
-	path.join(__dirname, logFilesDirectoryName, 'spare35'),
+/*	path.join(__dirname, logFilesDirectoryName, 'spare35'),
 	path.join(__dirname, logFilesDirectoryName, 'brice'),
 	path.join(__dirname, logFilesDirectoryName, 'iberia', 'alberto'),
 	path.join(__dirname, logFilesDirectoryName, 'iberia', 'ivan'),
 	path.join(__dirname, logFilesDirectoryName, 'iberia', 'renato'),
 	path.join(__dirname, logFilesDirectoryName, 'iberia', 'iberia aws'),
-	path.join(__dirname, logFilesDirectoryName, 'iberia', 'desktop'),
+	path.join(__dirname, logFilesDirectoryName, 'iberia', 'desktop'),*/
+	path.join(__dirname, logFilesDirectoryName, 'script'),
 ];
 
 parser.getParser().then(parser => {
@@ -115,9 +116,10 @@ parser.getParser().then(parser => {
 				
 					console.log('done', file.fileName, perfy.end('process').time);
 					
-					// fs.writeFileSync(path.join(__dirname, 'test', 'log files out', 'done-' + file.fileName), JSON.stringify(parsedFile));
+					fs.writeFileSync(path.join(__dirname, 'test', 'log files out', 'done-' + file.fileName), JSON.stringify(parsedFile));
 					
-					return promise.resolve(arr.concat([{ type: 'done', file: file }]));
+					// return promise.resolve(arr.concat([{ type: 'done', file: file }]));
+					return promise.resolve(arr);
 					
 				}
 					

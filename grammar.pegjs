@@ -963,9 +963,9 @@ loadBlockSourceFromParams
     }
 	
 loadBlockSourceFromParam
-	= chars:('delimiter is ' singleQuoteString)		{ return chars.join(''); }
-	/ chars:($ ('table is ' resource))				{ return chars; }
-	/ chars:[^,\)]*									{ return chars.join(''); }
+	= d:'delimiter'i sp1:spaces i:'is'i sp2:spaces delim:resource				{ return { delimiter: true, value: delim.value,	txt: () => computeText(arguments) }; }
+	/ t:'table'i sp1:spaces 'is'i sp2:spaces table:resource						{ return { table: true, value: table.value,		txt: () => computeText(arguments) }; }
+	/ chars:[^,\)]*																{ return chars.join(''); }
 
 	
 // SUFFIXES
@@ -1461,7 +1461,7 @@ termExpression
 	/ expr:singleQuoteString								{ return expr; }
 	/ expr:functionCall										{ return expr; }
 	/ expr:('TRUE'i / 'FALSE'i)								{ return { type: 'BOOL', value: expr, 	txt: () => computeText(arguments) }; }
-	/ expr:resource											{ return { type: 'VAR', value: expr, 	txt: () => computeText(arguments) }; }
+	/ expr:resource											{ return { type: 'VAR', value: expr.value, 	txt: () => computeText(arguments) }; }
 	/ expr:('$' [0-9])										{ return { type: 'PARAM', value: expr, 	txt: () => computeText(arguments) }; }
 
 functionCall		= 	name:functionName sep? '(' sep? 'DISTINCT'i? sep? params:functionParameters? sep? ')'
@@ -1591,8 +1591,8 @@ resources
 	}
 
 resource			= name:(
-						lib:'lib://' res:[^ \t\r\n()]+		{ return { value: lib + res.join('') }; }
-						/ name:('@'? alphanum)				{ return { value: (name[0] ? name[0] : '') + name[1] }; }
+						lib:'lib://' res:[^ \t\r\n()]+		{ return { value: lib + res.join(''), 					txt: () => computeText(arguments) }; }
+						/ name:('@'? alphanum)				{ return { value: (name[0] ? name[0] : '') + name[1], 	txt: () => computeText(arguments) }; }
 						/ name:braceQuoteString				
 						/ name:doubleQuoteString
 						/ name:singleQuoteString
@@ -1643,8 +1643,8 @@ digit				= [0-9]
  * Strings
  */
 
-alphanum			= chars:[a-zA-Z0-9\xC0-\xFF_\.%\?#°º$]+	{ return chars.join(''); }
-endofrow			= chars:[^\r\n]*						{ return chars.join(''); }
+alphanum			= chars:[a-zA-Z0-9\xC0-\xFF_\.%\?#°º$§]+	{ return chars.join(''); }
+endofrow			= chars:[^\r\n]*							{ return chars.join(''); }
 spEndofrow			= spaces? ( newline / EOF )
 EOF					= !.
 
