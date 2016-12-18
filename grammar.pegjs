@@ -826,7 +826,7 @@ loadBlockField
 	/ expr:expression as:(sep? 'AS'i sep? resource)? {
 		return {
 			expr: expr,
-			field: (as && as[3]) ? as[3] : expr.value,
+			field: (as && as[3]) ? as[3].value : expr.value,
 			txt: () => computeText(arguments)
 		}
 	}
@@ -1456,16 +1456,16 @@ calculationFactExpression
 calculationFactOperator = ((! (connectBlock / '*' sep '*')) '*' ) / '/'
   
 termExpression
-	= op:"(" sp1:sep? expr:expression sp2:sep? cp:")"		{ return { type: 'NONE', value: expr, 	txt: () => computeText(arguments) }; }
-	/ expr:number											{ return { type: 'NUM', value: expr, 	txt: () => computeText(arguments) }; }	
+	= op:"(" sp1:sep? expr:expression sp2:sep? cp:")"		{ return { type: 'EXPR', op: false, left: expr, right: false, 	txt: () => computeText(arguments) }; }
+	/ expr:number											{ return { type: 'NUM', value: expr, 							txt: () => computeText(arguments) }; }	
 	/ expr:singleQuoteString								{ return expr; }
 	/ expr:functionCall										{ return expr; }
-	/ expr:('TRUE'i / 'FALSE'i)								{ return { type: 'BOOL', value: expr, 	txt: () => computeText(arguments) }; }
-	/ expr:resource											{ return { type: 'VAR', value: expr.value, 	txt: () => computeText(arguments) }; }
-	/ expr:('$' [0-9])										{ return { type: 'PARAM', value: expr, 	txt: () => computeText(arguments) }; }
+	/ expr:('TRUE'i / 'FALSE'i)								{ return { type: 'BOOL', value: expr, 							txt: () => computeText(arguments) }; }
+	/ expr:resource											{ return { type: 'VAR', value: expr.value, 						txt: () => computeText(arguments) }; }
+	/ expr:('$' [0-9])										{ return { type: 'PARAM', value: expr, 							txt: () => computeText(arguments) }; }
 
-functionCall		= 	name:functionName sep? '(' sep? 'DISTINCT'i? sep? params:functionParameters? sep? ')'
-						{ return { type: "FCALL", function: name, params: params }; }
+functionCall		= 	name:functionName sp1:sep? op:'(' sp2:sep? d:'DISTINCT'i? sp3:sep? params:functionParameters? sp4:sep? cp:')'
+						{ return { type: "FCALL", function: name, params: params, txt: () => computeText(arguments) }; }
 
 fp					= & (sep? '(')
 
@@ -1671,18 +1671,23 @@ doubleQuoteStrings
 		}, [ head ]);
     }
 	
-doubleQuoteString = doubleQuote chars:doubleQuotechar* doubleQuote { return chars.join(''); }
+doubleQuoteString
+	= opq:doubleQuote chars:doubleQuotechar* cq:doubleQuote
+	{
+		return { type: 'STR', value: chars.map(char => char.char).join(''), txt: () => computeText(arguments) };
+	}
 
 doubleQuotechar
-  = doubleQuoteUeChar
-  / doubleQuoteEscape
-	sequence:(
-		doubleQuote { return '"'; }
-	)
-    { return sequence; }
-
-doubleQuoteEscape	= '"'
-doubleQuote			= '"'
+ 	= char:doubleQuoteUeChar
+	{ return { char: char, txt: () => computeText(arguments) }}
+	
+	/ esc:doubleQuote sequence:(doubleQuote)
+    { return { char: sequence, txt: () => computeText(arguments) }; }
+	
+    / sep:sep char:(doubleQuotechar / & doubleQuote)
+    { return { char: sep + char, txt: () => computeText(arguments) }; }
+    
+doubleQuote			= "\""
 doubleQuoteUeChar	= '\t' / [^\0-\x1F"]
 
 /*
